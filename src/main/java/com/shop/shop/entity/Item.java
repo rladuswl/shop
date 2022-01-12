@@ -21,13 +21,13 @@ public class Item {
     private Long id; // 상품 코드
 
     @Column(nullable = false, length = 50)
-    private String itemNm; // 상품명
+    private String itemName; // 상품명
 
     @Column(name = "price", nullable = false)
     private int price; // 상품 가격
 
     @Column(nullable = false)
-    private int stockNumber; // 재고 수량
+    private int stock; // 재고 수량
 
     @Lob
     @Column(nullable = false)

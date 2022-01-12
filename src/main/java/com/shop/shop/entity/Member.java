@@ -41,6 +41,7 @@ public class Member {
         member.setAddress(joinFormDto.getAddress());
         String password = passwordEncoder.encode(joinFormDto.getPassword());
         member.setPassword(password);
+        // 기본 값 USER, ADMIN 으로 설정 가능
         member.setRole(Role.ADMIN);
         return member;
     }
