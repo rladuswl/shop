@@ -2,11 +2,14 @@ package com.shop.shop.service;
 
 import com.shop.shop.dto.ItemFormDto;
 import com.shop.shop.dto.ItemImgDto;
+import com.shop.shop.dto.ItemSearchDto;
 import com.shop.shop.entity.Item;
 import com.shop.shop.entity.ItemImg;
 import com.shop.shop.repository.ItemImgRepository;
 import com.shop.shop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,6 +54,13 @@ public class ItemService {
 
         return item.getId();
     }
+
+    // 상품 관리 페이지 상품 목록 조회
+    @Transactional(readOnly = true)
+    public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+        return itemRepository.getAdminItemPage(itemSearchDto, pageable);
+    }
+
 
     // 상품 조회
     // item 엔티티와 img 정보 엔티티를 itemFormDto 객체로 변환 후 반환하는 조회 기능
@@ -97,5 +107,11 @@ public class ItemService {
             itemImgService.updateItemImg(itemImgIds.get(i), itemImgFileList.get(i));
         }
         return item.getId();
+    }
+
+    // 메인 페이지 상품 목록 조회
+    @Transactional(readOnly = true)
+    public Page<Item> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
+        return itemRepository.getAdminItemPage(itemSearchDto, pageable);
     }
 }
