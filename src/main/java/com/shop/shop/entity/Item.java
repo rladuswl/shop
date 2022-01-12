@@ -1,6 +1,7 @@
 package com.shop.shop.entity;
 
 import com.shop.shop.constant.ItemSellStatus;
+import com.shop.shop.dto.ItemFormDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -38,4 +39,14 @@ public class Item {
 
     private LocalDateTime regTime; // 상품 등록 시간
     private LocalDateTime updateTime; // 상품 수정 시간
+
+    // 엔티티 클래스에 업데이트 로직 생성
+    // 코드 재활용 가능, 변경 포인트를 한군데서 관리 가능
+    public void updateItem(ItemFormDto itemFormDto) {
+        this.itemName = itemFormDto.getItemName();
+        this.price = itemFormDto.getPrice();
+        this.stock = itemFormDto.getStock();
+        this.itemDetail = itemFormDto.getItemDetail();
+        this.itemSellStatus = itemFormDto.getItemSellStatus();
+    }
 }

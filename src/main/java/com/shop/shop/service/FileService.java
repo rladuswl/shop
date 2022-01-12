@@ -37,7 +37,7 @@ public class FileService {
 
 
     // 이미지 파일 삭제
-    public void deleteFile(String filePath) throws Exception {
+    public void deleteFile(String filePath) {
 
         File deleteFile = new File(filePath);
 
