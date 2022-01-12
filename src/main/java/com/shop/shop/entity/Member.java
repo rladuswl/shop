@@ -41,7 +41,7 @@ public class Member {
         member.setAddress(joinFormDto.getAddress());
         String password = passwordEncoder.encode(joinFormDto.getPassword());
         member.setPassword(password);
-        member.setRole(Role.USER);
+        member.setRole(Role.ADMIN);
         return member;
     }
 }

@@ -23,6 +23,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // configure(HttpSecurity) 메소드를 통해 로그인 및 로그아웃 URL 지정
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        // HttpServletRequest에 대해서 security 처리를 수행
+        // anyRequest() - 위에 존재하는 url patterns 들을 제외한 나머지 요청들
+        http.authorizeRequests()
+                // 해당 url patterns은 모두에게 허용
+                .mvcMatchers("/", "/member/**", "/item/**", "/images/**").permitAll()
+                // 해당 url patterns(/admin/**)은 ADMIN에게만 허용
+                .mvcMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated();
+
+        http.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint());
+
         http.formLogin()
                 .loginPage("/member/login")
                 .defaultSuccessUrl("/")
@@ -35,6 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+
+    // static 디렉터리의 하위 파일은 인증을 무시하도록 설정
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/css/**", "/js/**", "/img/**");
